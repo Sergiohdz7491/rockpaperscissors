@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function playRound(humanChoice, computerChoice) {
+            if(humanChoice == "rock"){
+                if (computerChoice == "paper"){
+                    console.log("You lose! Paper beats rock!");
+                    return 0;
+                }
+                else if(computerChoice == "scissors"){
+                    console.log("You win! Rock beats Scissors");
+                    return 1;
+                }
+                else{
+                    console.log("no winner");
+                }
+            }
+            else if(humanChoice =="paper"){
+                if(computerChoice == "scissors"){
+                    console.log("You lose! Scissors beats paper");
+                    return 0;
+                }
+                else if(computerChoice == "rock"){
+                    console.log("You win! Paper beats rock!");
+                    return 1;
+                }
+                else{
+                    console.log("no winner");
+                }
+            }
+            else if (humanChoice == "scissors"){
+                if(computerChoice == "rock"){
+                    console.log("You lose! Rock beats scissors!");
+                    return 0;
+                }
+                else if(computerChoice == "paper"){
+                    console.log("You win! Paper beats scissors!");
+                    return 1;
+                }
+                else{
+                    console.log("no winners");
+                }
+            }
+        }
+        function getHumanChoice(){
+            let choice = prompt("What choice are you going to make?");
+            choice = choice.toLowerCase();
+            return choice;
+        }
+        function getComputerChoice(){
+            let compchoice = Math.random();
+            compchoice = compchoice * 100;
+
+            if (compchoice <= 33){
+                compchoice = "rock";
+            }
+            else if (compchoice > 33 && compchoice <= 66){
+                compchoice = "scissor";
+            }
+            else{
+                compchoice = "paper";
+            }
+            return compchoice;
+
+        }
+        function playGame(){
+            let humanScore = 0;
+            let compScore = 0;
+            let winner = null;
+            for(let i = 1; i <= 5; i++){
+                winner = playRound(getHumanChoice(), getComputerChoice())
+                if (winner == 0){
+                    compScore += 1;
+                }
+                else if(winner == 1){
+                    humanScore += 1;
+                }
+                console.log("the score is " + humanScore + " " + compScore)
+            }
+            if (humanScore > compScore){
+                console.log("You are the winner!")
+            }
+            else if (humanScore < compScore){
+                console.log("The computer is the winner");
+            }
+        }
+        const gameStart = playGame();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
