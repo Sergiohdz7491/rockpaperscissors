@@ -5,45 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+
+</head>
+<body>
+    <button id="rock">rock</button>
+    <button id="paper">paper</button>
+    <button id="scissors">scissors</button>
+</body>
     <script>
+        let humanScore = 0;
+        let compScore = 0;
+
         function playRound(humanChoice, computerChoice) {
             if(humanChoice == "rock"){
                 if (computerChoice == "paper"){
-                    console.log("You lose! Paper beats rock!");
-                    return 0;
+                    compScore += 1;
+                    return "You lose! Paper beats rock!";
                 }
                 else if(computerChoice == "scissors"){
-                    console.log("You win! Rock beats Scissors");
-                    return 1;
+                    humanScore += 1;
+                    return "You win! Rock beats Scissors";
                 }
                 else{
-                    console.log("no winner");
+                    return "no winner";
                 }
             }
             else if(humanChoice =="paper"){
                 if(computerChoice == "scissors"){
-                    console.log("You lose! Scissors beats paper");
-                    return 0;
+                    compScore += 1;
+                    return "You lose! Scissors beats paper";
                 }
                 else if(computerChoice == "rock"){
-                    console.log("You win! Paper beats rock!");
-                    return 1;
+                    humanScore += 1;
+                    return "You win! Paper beats rock!";
                 }
                 else{
-                    console.log("no winner");
+                    return "no winner";
                 }
             }
             else if (humanChoice == "scissors"){
                 if(computerChoice == "rock"){
-                    console.log("You lose! Rock beats scissors!");
-                    return 0;
+                    compScore += 1;
+                    return "You lose! Rock beats scissors!";
                 }
                 else if(computerChoice == "paper"){
-                    console.log("You win! Paper beats scissors!");
-                    return 1;
+                    humanScore += 1;
+                    return "You win! Paper beats scissors!";
                 }
                 else{
-                    console.log("no winners");
+                    return "no winners";
                 }
             }
         }
@@ -68,31 +78,58 @@
             return compchoice;
 
         }
-        function playGame(){
-            let humanScore = 0;
-            let compScore = 0;
-            let winner = null;
-            for(let i = 1; i <= 5; i++){
-                winner = playRound(getHumanChoice(), getComputerChoice())
-                if (winner == 0){
-                    compScore += 1;
+
+        const rockbtn = document.getElementById("rock");
+
+        const paperbtn = document.getElementById("paper")
+
+        const scissorsbtn = document.getElementById("scissors")
+
+        function scoreChecker(){
+            if (humanScore == 5 || compScore == 5){
+                if(humanScore == 5){
+                    let decision = " you are the winner!"
+                    humanScore = 0;
+                    compScore = 0;
+                    return decision;
                 }
-                else if(winner == 1){
-                    humanScore += 1;
+                else if(compScore == 5){
+                    let decision = " computer wins!"
+                    humanScore = 0;
+                    compScore = 0;
+                    return decision;
                 }
-                console.log("the score is " + humanScore + " " + compScore)
             }
-            if (humanScore > compScore){
-                console.log("You are the winner!")
+            else{
+                return "";
             }
-            else if (humanScore < compScore){
-                console.log("The computer is the winner");
-            }
-        }
-        const gameStart = playGame();
+        };
+        rockbtn.addEventListener("click", (e) => {
+            let decision = playRound("rock", getComputerChoice());
+            const rockdiv= document.createElement("div"); 
+            rockdiv.textContent = decision + " " + humanScore +" " + compScore;
+
+            rockdiv.textContent += scoreChecker();
+
+            document.body.appendChild(rockdiv);
+        } );
+
+        paperbtn.addEventListener("click", (e) => {
+            let decision = playRound("paper", getComputerChoice());
+            const paperdiv = document.createElement("div"); 
+            paperdiv.textContent = decision + " " + humanScore + " " + compScore;
+            paperdiv.textContent += scoreChecker();
+
+            document.body.appendChild(paperdiv);
+        });
+        scissorsbtn.addEventListener("click", (e) => {
+            let decision = playRound("scissors", getComputerChoice());
+            const scissorsdiv = document.createElement("div"); 
+            scissorsdiv.textContent = decision + " " + humanScore + " " + compScore;
+
+            scissorsdiv.textContent += scoreChecker();
+
+            document.body.appendChild(scissorsdiv);
+        })
     </script>
-</head>
-<body>
-    
-</body>
 </html>
